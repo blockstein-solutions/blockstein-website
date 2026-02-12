@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Blockstein Solutions is a systems-driven marketing agency helping tech companies and modern brands scale through structured branding, distribution, and performance marketing.">
+<title>Blockstein Solutions | Where brand, distribution, and performance meet.</title>
+
+<style>
+
+/* ===== RESET ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ===== VARIABLES ===== */
+:root {
+    --bg-dark: #0f1117;
+    --bg-light: #151925;
+    --accent: #21D0C3;
+    --text-primary: #ffffff;
+    --text-secondary: #a7b1c2;
+    --border: rgba(255,255,255,0.06);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    line-height: 1.7;
+}
+
+/* ===== NAVIGATION ===== */
+nav {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background: rgba(15,17,23,0.85);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    padding: 1.2rem 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--text-primary);
+}
+
+/* ===== HERO ===== */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8rem 2rem;
+    text-align: center;
+    background:
+        radial-gradient(circle at 50% 0%, rgba(33,208,195,0.08), transparent 60%),
+        var(--bg-dark);
+}
+
+.hero h1 {
+    font-size: 3.2rem;
+    font-weight: 600;
+    max-width: 900px;
+    margin: auto;
+    margin-bottom: 1.5rem;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    max-width: 750px;
+    margin: auto;
+    margin-bottom: 2.5rem;
+}
+
+.btn {
+    padding: 1rem 2.2rem;
+    border-radius: 6px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.3s ease;
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #000;
+}
+
+.btn-primary:hover {
+    opacity: 0.85;
+}
+
+.btn-secondary {
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    margin-left: 1rem;
+}
+
+.btn-secondary:hover {
+    background: rgba(33,208,195,0.08);
+}
+
+/* ===== SECTION ===== */
+section {
+    padding: 8rem 2rem;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-header h2 {
+    font-size: 2.4rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.section-header p {
+    color: var(--text-secondary);
+}
+
+/* ===== ABOUT ===== */
+.about-content {
+    max-width: 850px;
+    margin: auto;
+    text-align: center;
+}
+
+.about-content p {
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+}
+
+/* ===== SERVICES ===== */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.service-card {
+    background: var(--bg-light);
+    padding: 2.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    transition: 0.3s ease;
+}
+
+.service-card:hover {
+    border-color: var(--accent);
+}
+
+.service-card h3 {
+    margin-bottom: 1rem;
+}
+
+.service-card p {
+    color: var(--text-secondary);
+}
+
+/* ===== EXPERIENCE ===== */
+.experience {
+    text-align: center;
+}
+
+.experience p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+/* ===== PROCESS ===== */
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.process-step {
+    background: var(--bg-light);
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+.process-step h3 {
+    margin-bottom: 0.8rem;
+}
+
+.process-step p {
+    color: var(--text-secondary);
+}
+
+/* ===== CONTACT ===== */
+.contact-box {
+    max-width: 600px;
+    margin: auto;
+    background: var(--bg-light);
+    padding: 3rem;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    text-align: center;
+}
+
+.contact-box p {
+    margin-bottom: 2rem;
+    color: var(--text-secondary);
+}
+
+/* ===== FOOTER ===== */
+footer {
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    color: var(--text-secondary);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.3rem;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="nav-container">
+        <div class="logo">BLOCKSTEIN SOLUTIONS</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<section class="hero">
+    <div>
+        <h1>Where brand, distribution, and performance meet.</h1>
+        <p>
+            Blockstein Solutions is a systems-driven marketing agency helping tech companies,
+            Web3 projects, and modern brands scale through structured branding,
+            strategic distribution, and measurable performance marketing.
+        </p>
+        <a href="#contact" class="btn btn-primary">Get in touch</a>
+        <a href="#services" class="btn btn-secondary">Our services</a>
+    </div>
+</section>
+
+<section id="about">
+    <div class="section-header">
+        <h2>Integrated growth systems</h2>
+        <p>Strategy first. Execution second. Performance always.</p>
+    </div>
+    <div class="about-content">
+        <p>
+            We eliminate silos between branding, distribution, and performance marketing.
+            Every initiative is built as part of a unified growth system designed for scale.
+        </p>
+        <p>
+            We partner with serious teams who value structure, clarity, and measurable outcomes.
+        </p>
+    </div>
+</section>
+
+<section id="services">
+    <div class="section-header">
+        <h2>Services</h2>
+        <p>Structured marketing capabilities under one roof</p>
+    </div>
+
+    <div class="services-grid">
+        <div class="service-card">
+            <h3>Branding & Identity</h3>
+            <p>Positioning, identity systems, rebranding, and strategic brand architecture.</p>
+        </div>
+
+        <div class="service-card">
+            <h3>Influencer / KOL Distribution</h3>
+            <p>Structured ambassador programs, strategic partnerships, and ROI tracking.</p>
+        </div>
+
+        <div class="service-card">
+            <h3>Digital Advertising</h3>
+            <p>Google Ads, Meta Ads, paid acquisition systems, retargeting, and optimization.</p>
+        </div>
+
+        <div class="service-card">
+            <h3>Content & Social</h3>
+            <p>Strategic content systems, creative direction, and community growth.</p>
+        </div>
+
+        <div class="service-card">
+            <h3>Analytics & Reporting</h3>
+            <p>Performance dashboards, attribution clarity, and decision-ready insights.</p>
+        </div>
+
+        <div class="service-card">
+            <h3>Strategy & Advisory</h3>
+            <p>Marketing audits, structured roadmaps, and long-term advisory partnerships.</p>
+        </div>
+    </div>
+</section>
+
+<section class="experience">
+    <div class="section-header">
+        <h2>Selected experience</h2>
+        <p>Working across technology, Web3 ecosystems, and growth-stage brands.</p>
+    </div>
+    <p>Product launches. Community growth systems. Paid acquisition frameworks. Strategic repositioning initiatives.</p>
+</section>
+
+<section id="process">
+    <div class="section-header">
+        <h2>Our process</h2>
+        <p>A structured path to scalable growth</p>
+    </div>
+
+    <div class="process-grid">
+        <div class="process-step">
+            <h3>01 — Discover & audit</h3>
+            <p>Deep analysis of brand, channels, and growth constraints.</p>
+        </div>
+
+        <div class="process-step">
+            <h3>02 — Strategy & planning</h3>
+            <p>Clear roadmap aligned with measurable objectives.</p>
+        </div>
+
+        <div class="process-step">
+            <h3>03 — Execute & distribute</h3>
+            <p>Coordinated rollout across branding, paid, and distribution channels.</p>
+        </div>
+
+        <div class="process-step">
+            <h3>04 — Measure & optimize</h3>
+            <p>Continuous refinement driven by real performance data.</p>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <div class="section-header">
+        <h2>Let’s build structured growth</h2>
+        <p>Serious inquiries only.</p>
+    </div>
+
+    <div class="contact-box">
+        <p>
+            Tell us about your company and growth objectives.
+            We respond within 24 hours.
+        </p>
+        <a href="mailto:hello@blocksteinsolutions.com" class="btn btn-primary">
+            Email us at hello@blocksteinsolutions.com
+        </a>
+    </div>
+</section>
+
+<footer>
+    © 2026 Blockstein Solutions. All rights reserved.
+</footer>
+
+</body>
+</html>
