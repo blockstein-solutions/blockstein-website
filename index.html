@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blockstein Solutions</title>
+<meta name="description" content="Blockstein Solutions is a systems-driven marketing agency helping tech startups and modern brands turn positioning into predictable revenue through structured branding, strategic distribution and performance marketing systems.">
+<title>Blockstein Solutions | Where brand, distribution, and performance meet.</title>
+
+<link rel="icon" type="image/png" href="blockstein-logo.png">
 
 <style>
 
@@ -15,173 +18,244 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-    background: #F5F5F5;
-    color: #111;
+    background: #0B132B;
+    color: #ffffff;
     line-height: 1.6;
 }
 
-.container {
+/* ================= NAVIGATION ================= */
+
+nav {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background: rgba(11, 19, 43, 0.95);
+    backdrop-filter: blur(8px);
+    padding: 1.2rem 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.nav-container {
     max-width: 1200px;
     margin: auto;
     padding: 0 2rem;
-}
-
-/* ================= NAV ================= */
-
-nav {
-    padding: 1.5rem 0;
-}
-
-.nav-inner {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     font-weight: 600;
-    letter-spacing: 1px;
+    font-size: 1.05rem;
+    letter-spacing: 0.5px;
+}
+
+.logo img {
+    height: 32px;
 }
 
 .nav-links {
+    list-style: none;
     display: flex;
     gap: 2rem;
-    list-style: none;
 }
 
 .nav-links a {
+    color: #A7B1C2;
     text-decoration: none;
-    color: #666;
     font-size: 0.95rem;
+    transition: 0.3s ease;
 }
 
 .nav-links a:hover {
-    color: #111;
+    color: #21D0C3;
+}
+
+/* Hamburger */
+
+.hamburger {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: white;
 }
 
 /* ================= HERO ================= */
 
 .hero {
-    padding: 6rem 0 4rem 0;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7rem 2rem 4rem;
+    text-align: center;
+    background:
+        radial-gradient(circle at 50% 0%, rgba(33,208,195,0.12), transparent 60%),
+        #0B132B;
+}
+
+.hero-content {
+    max-width: 720px;
 }
 
 .hero h1 {
-    font-size: 4rem;
-    font-weight: 700;
-    line-height: 1.05;
-    max-width: 800px;
-    margin-bottom: 2rem;
-}
-
-.hero h1 span {
-    color: #999;
+    font-size: 2.8rem;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
 }
 
 .hero p {
-    max-width: 550px;
     font-size: 1.1rem;
-    color: #555;
-    margin-bottom: 3rem;
+    color: #A7B1C2;
+    margin-bottom: 2rem;
 }
 
-.hero .cta {
+/* ================= BUTTONS ================= */
+
+.btn {
+    padding: 0.9rem 2rem;
+    border-radius: 8px;
     font-weight: 600;
     text-decoration: none;
-    color: #111;
-    border-bottom: 2px solid #21D0C3;
-    padding-bottom: 4px;
+    display: inline-block;
+    transition: all 0.3s ease;
 }
 
-/* ================= DIVIDER ================= */
-
-.divider {
-    border-top: 1px solid #ddd;
-    margin: 4rem 0;
+.btn-primary {
+    background: #21D0C3;
+    color: #0B132B;
+    box-shadow: 0 6px 20px rgba(33,208,195,0.2);
+    margin-right: 1rem;
 }
 
-/* ================= SECTION TITLE ================= */
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(33,208,195,0.35);
+}
 
-.section-label {
-    font-size: 0.75rem;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #999;
-    margin-bottom: 1rem;
+.btn-outline {
+    border: 1px solid #21D0C3;
+    color: #21D0C3;
+}
+
+.btn-outline:hover {
+    background: #21D0C3;
+    color: #0B132B;
+}
+
+/* ================= TRUST STRIP ================= */
+
+.trust-strip {
+    padding: 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.trust-strip p {
+    color: #A7B1C2;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+/* ================= SECTIONS ================= */
+
+section {
+    padding: 5rem 2rem;
+    max-width: 1100px;
+    margin: auto;
 }
 
 .section-title {
-    font-size: 2.5rem;
-    margin-bottom: 3rem;
-}
-
-/* ================= SERVICES GRID ================= */
-
-.services-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border-top: 1px solid #ddd;
-    border-left: 1px solid #ddd;
-}
-
-.service {
-    padding: 3rem;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    min-height: 240px;
-}
-
-.service h3 {
-    font-size: 1.2rem;
+    font-size: 2rem;
     margin-bottom: 1rem;
 }
 
-.service p {
-    color: #555;
-    max-width: 320px;
+.section-sub {
+    color: #A7B1C2;
+    margin-bottom: 3rem;
 }
 
-/* ================= CONTACT ================= */
+/* ================= SERVICES ================= */
 
-.contact {
-    padding: 6rem 0;
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.8rem;
 }
 
-.contact h2 {
-    font-size: 3rem;
-    max-width: 700px;
-    line-height: 1.1;
-    margin-bottom: 2rem;
+.service-card {
+    background: #111a38;
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.05);
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-.contact p {
-    color: #555;
-    max-width: 500px;
-    margin-bottom: 2rem;
+.service-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #21D0C3;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
-.contact a {
-    font-size: 1.2rem;
-    text-decoration: none;
-    color: #111;
-    border-bottom: 2px solid #21D0C3;
-    padding-bottom: 5px;
+.service-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(33,208,195,0.4);
+}
+
+.service-card h3 {
+    margin-bottom: 0.8rem;
+    font-size: 1.05rem;
+}
+
+.service-card p {
+    color: #A7B1C2;
+    font-size: 0.95rem;
 }
 
 /* ================= FOOTER ================= */
 
 footer {
-    background: #111;
-    color: #aaa;
-    padding: 3rem 0;
-    font-size: 0.9rem;
+    padding: 4rem 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.05);
 }
 
-footer .container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+.social-links {
+    margin: 2rem 0;
+}
+
+.social-links a {
+    margin: 0 12px;
+    color: #A7B1C2;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #21D0C3;
+}
+
+.footer-bottom {
+    color: #6c7a91;
+    font-size: 0.9rem;
 }
 
 /* ================= MOBILE ================= */
@@ -189,16 +263,27 @@ footer .container {
 @media (max-width: 768px) {
 
     .hero h1 {
-        font-size: 2.5rem;
+        font-size: 2.1rem;
     }
 
-    .services-grid {
-        grid-template-columns: 1fr;
-    }
-
-    footer .container {
+    .nav-links {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background: #0B132B;
+        width: 100%;
         flex-direction: column;
-        gap: 1rem;
+        text-align: center;
+        padding: 2rem 0;
+        display: none;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .hamburger {
+        display: block;
     }
 }
 
@@ -208,68 +293,96 @@ footer .container {
 <body>
 
 <nav>
-    <div class="container nav-inner">
-        <div class="logo">BLOCKSTEIN</div>
-        <ul class="nav-links">
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Contact</a></li>
+    <div class="nav-container">
+        <div class="logo">
+            <img src="blockstein-logo.png" alt="Blockstein Logo">
+            <span>Blockstein Solutions</span>
+        </div>
+
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
         </ul>
     </div>
 </nav>
 
-<section class="hero container">
-    <h1>
-        Where brand <span>&</span> performance meet.
-    </h1>
-    <p>
-        Blockstein Solutions helps technology companies scale through structured branding, strategic distribution, and measurable performance marketing.
-    </p>
-    <a href="#contact" class="cta">Request Strategy →</a>
+<section class="hero">
+    <div class="hero-content">
+        <h1>Where brand, distribution, and performance meet.</h1>
+        <p>
+            We help tech startups and modern brands turn positioning into predictable revenue through structured branding, strategic distribution, and performance marketing systems.
+        </p>
+        <a href="#contact" class="btn btn-primary">Book a Strategy Call</a>
+        <a href="#services" class="btn btn-outline">View Our Services</a>
+    </div>
 </section>
 
-<div class="divider container"></div>
+<section class="trust-strip">
+    <p>Performance-driven marketing for tech startups, Web3 projects and modern brands.</p>
+</section>
 
-<section class="container">
-    <div class="section-label">Section of Execution</div>
-    <h2 class="section-title">Integrated Growth Architecture.</h2>
+<section id="about">
+    <h2 class="section-title">Integrated Growth Architecture</h2>
+    <p class="section-sub">
+        We don’t treat branding, distribution and performance as separate silos.
+        Blockstein builds unified marketing systems that turn positioning into measurable revenue.
+    </p>
+</section>
 
+<section id="services">
+    <h2 class="section-title">Our Services</h2>
     <div class="services-grid">
-        <div class="service">
+        <div class="service-card">
             <h3>Brand Strategy & Identity</h3>
-            <p>Defining the core narrative and systems that position your company for scalable market leadership.</p>
+            <p>Positioning, messaging architecture and visual systems for modern tech companies.</p>
         </div>
-
-        <div class="service">
-            <h3>Distribution & Growth</h3>
-            <p>High-leverage KOL partnerships, ambassador networks and conversion-focused distribution loops.</p>
+        <div class="service-card">
+            <h3>KOL & Influencer Distribution</h3>
+            <p>Strategic partnerships and ROI-focused influencer execution across Web3 ecosystems.</p>
         </div>
-
-        <div class="service">
-            <h3>Performance Advertising</h3>
-            <p>Data-driven acquisition across major platforms with disciplined CAC optimization.</p>
+        <div class="service-card">
+            <h3>Digital Advertising</h3>
+            <p>Paid acquisition across Google, Meta and emerging platforms with disciplined performance tracking.</p>
         </div>
-
-        <div class="service">
-            <h3>Analytics & Systems</h3>
-            <p>Custom reporting frameworks that turn raw data into strategic growth decisions.</p>
+        <div class="service-card">
+            <h3>Analytics & Optimization</h3>
+            <p>Custom dashboards, reporting frameworks and continuous performance refinement.</p>
         </div>
     </div>
 </section>
 
-<section class="contact container" id="contact">
-    <h2>Let’s build something that scales.</h2>
-    <p>
-        Serious inquiries only. We partner with companies ready to move beyond fragmented marketing into structured, performance-driven growth.
+<section id="contact">
+    <h2 class="section-title">Let’s Build Something That Scales</h2>
+    <p class="section-sub">
+        Serious inquiries only. We partner with companies ready to build structured, performance-driven growth.
     </p>
-    <a href="mailto:hello@blocksteinsolutions.com">hello@blocksteinsolutions.com</a>
+    <a href="mailto:hello@blocksteinsolutions.com" class="btn btn-primary">Email Us</a>
 </section>
 
 <footer>
-    <div class="container">
-        <div>© 2026 Blockstein Solutions</div>
-        <div>Strategic Growth Architecture</div>
+
+    <div class="social-links">
+        <a href="https://x.com/blockstein_?s=21" target="_blank">X</a>
+        <a href="https://www.facebook.com/share/1bJSGxtNUE/?mibextid=wwXIfr" target="_blank">Facebook</a>
+        <a href="https://www.tiktok.com/@blockstein_?_r=1&_t=ZS-93qfJ5ZSXuD" target="_blank">TikTok</a>
+        <a href="https://www.linkedin.com/company/blockstein-solutions/" target="_blank">LinkedIn</a>
+        <a href="#">Instagram</a>
     </div>
+
+    <div class="footer-bottom">
+        © 2026 Blockstein Solutions. All rights reserved.
+    </div>
+
 </footer>
+
+<script>
+function toggleMenu() {
+    document.getElementById("navLinks").classList.toggle("active");
+}
+</script>
 
 </body>
 </html>
