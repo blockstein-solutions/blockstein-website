@@ -3,386 +3,287 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Blockstein Solutions is a systems-driven marketing agency helping tech startups and modern brands turn positioning into predictable revenue through structured branding, strategic distribution and performance marketing systems.">
-<title>Blockstein Solutions | Where brand, distribution, and performance meet.</title>
-
-<link rel="icon" type="image/png" href="blockstein-logo.png">
+<title>Blockstein Solutions | Systems-Driven Web3 Growth</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-
-/* ================= GLOBAL ================= */
+:root {
+    --bg: #080808;
+    --card: #111111;
+    --border: #1f1f1f;
+    --text: #ffffff;
+    --muted: #a7b1c2;
+    --accent: #21D0C3;
+}
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
+    font-family: 'Inter', sans-serif;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-    background: #0B132B;
-    color: #ffffff;
+    background: var(--bg);
+    color: var(--text);
     line-height: 1.6;
 }
 
-/* ================= NAVIGATION ================= */
-
-nav {
-    position: fixed;
-    width: 100%;
-    top: 0;
-    background: rgba(11, 19, 43, 0.95);
-    backdrop-filter: blur(8px);
-    padding: 1.2rem 0;
-    z-index: 1000;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-.nav-container {
+.container {
     max-width: 1200px;
     margin: auto;
-    padding: 0 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 80px 20px;
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-weight: 600;
-    font-size: 1.05rem;
-    letter-spacing: 0.5px;
+h1, h2, h3 {
+    font-weight: 700;
 }
 
-.logo img {
-    height: 32px;
+h1 {
+    font-size: 48px;
+    line-height: 1.2;
 }
 
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 2rem;
+h2 {
+    font-size: 34px;
+    margin-bottom: 20px;
 }
 
-.nav-links a {
-    color: #A7B1C2;
+p {
+    color: var(--muted);
+    margin-bottom: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 14px 28px;
+    background: var(--accent);
+    color: #000;
     text-decoration: none;
-    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 6px;
     transition: 0.3s ease;
 }
 
-.nav-links a:hover {
-    color: #21D0C3;
+.btn:hover {
+    box-shadow: 0 0 15px var(--accent);
+    transform: translateY(-2px);
 }
 
-/* Hamburger */
-
-.hamburger {
-    display: none;
-    font-size: 1.8rem;
-    cursor: pointer;
-    color: white;
+.section-divider {
+    border-top: 1px solid var(--border);
 }
 
-/* ================= HERO ================= */
-
+/* HERO */
 .hero {
-    min-height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 7rem 2rem 4rem;
     text-align: center;
-    background:
-        radial-gradient(circle at 50% 0%, rgba(33,208,195,0.12), transparent 60%),
-        #0B132B;
-}
-
-.hero-content {
-    max-width: 720px;
-}
-
-.hero h1 {
-    font-size: 2.8rem;
-    font-weight: 600;
-    margin-bottom: 1.2rem;
+    padding: 140px 20px 100px;
 }
 
 .hero p {
-    font-size: 1.1rem;
-    color: #A7B1C2;
-    margin-bottom: 2rem;
+    font-size: 18px;
+    max-width: 700px;
+    margin: 20px auto;
 }
 
-/* ================= BUTTONS ================= */
-
-.btn {
-    padding: 0.9rem 2rem;
-    border-radius: 8px;
+/* TRUST BAR */
+.trust-bar {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin-top: 40px;
+    color: var(--muted);
     font-weight: 600;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s ease;
 }
 
-.btn-primary {
-    background: #21D0C3;
-    color: #0B132B;
-    box-shadow: 0 6px 20px rgba(33,208,195,0.2);
-    margin-right: 1rem;
-}
-
-.btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 28px rgba(33,208,195,0.35);
-}
-
-.btn-outline {
-    border: 1px solid #21D0C3;
-    color: #21D0C3;
-}
-
-.btn-outline:hover {
-    background: #21D0C3;
-    color: #0B132B;
-}
-
-/* ================= TRUST STRIP ================= */
-
-.trust-strip {
-    padding: 2rem;
-    text-align: center;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-}
-
-.trust-strip p {
-    color: #A7B1C2;
-    font-size: 0.9rem;
-    letter-spacing: 0.5px;
-}
-
-/* ================= SECTIONS ================= */
-
-section {
-    padding: 5rem 2rem;
-    max-width: 1100px;
-    margin: auto;
-}
-
-.section-title {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
-
-.section-sub {
-    color: #A7B1C2;
-    margin-bottom: 3rem;
-}
-
-/* ================= SERVICES ================= */
-
-.services-grid {
+/* BENTO GRID */
+.grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.8rem;
+    gap: 24px;
 }
 
-.service-card {
-    background: #111a38;
-    padding: 2rem;
-    border-radius: 8px;
-    border: 1px solid rgba(255,255,255,0.05);
-    transition: all 0.3s ease;
-    position: relative;
+.grid-3 {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
-.service-card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: #21D0C3;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-}
-
-.service-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(33,208,195,0.4);
-}
-
-.service-card h3 {
-    margin-bottom: 0.8rem;
-    font-size: 1.05rem;
-}
-
-.service-card p {
-    color: #A7B1C2;
-    font-size: 0.95rem;
-}
-
-/* ================= FOOTER ================= */
-
-footer {
-    padding: 4rem 2rem;
-    text-align: center;
-    border-top: 1px solid rgba(255,255,255,0.05);
-}
-
-.social-links {
-    margin: 2rem 0;
-}
-
-.social-links a {
-    margin: 0 12px;
-    color: #A7B1C2;
-    text-decoration: none;
+.card {
+    background: var(--card);
+    padding: 30px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
     transition: 0.3s ease;
 }
 
-.social-links a:hover {
-    color: #21D0C3;
+.card:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 12px rgba(33, 208, 195, 0.3);
 }
 
-.footer-bottom {
-    color: #6c7a91;
-    font-size: 0.9rem;
+.metric {
+    font-size: 32px;
+    color: var(--accent);
+    font-weight: 700;
 }
 
-/* ================= MOBILE ================= */
+/* FORM */
+form {
+    display: grid;
+    gap: 20px;
+    max-width: 600px;
+}
+
+input, select, textarea {
+    padding: 12px;
+    background: #111;
+    border: 1px solid var(--border);
+    color: white;
+    border-radius: 6px;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--accent);
+    outline: none;
+}
+
+/* FOOTER */
+footer {
+    padding: 60px 20px;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+}
+
+.newsletter {
+    max-width: 400px;
+    margin: 20px auto;
+}
 
 @media (max-width: 768px) {
-
-    .hero h1 {
-        font-size: 2.1rem;
-    }
-
-    .nav-links {
-        position: absolute;
-        top: 70px;
-        right: 0;
-        background: #0B132B;
-        width: 100%;
-        flex-direction: column;
-        text-align: center;
-        padding: 2rem 0;
-        display: none;
-    }
-
-    .nav-links.active {
-        display: flex;
-    }
-
-    .hamburger {
-        display: block;
+    h1 {
+        font-size: 34px;
     }
 }
-
 </style>
 </head>
 
 <body>
 
-<nav>
-    <div class="nav-container">
-        <div class="logo">
-            <img src="blockstein-logo.png" alt="Blockstein Logo">
-            <span>Blockstein Solutions</span>
-        </div>
-
-        <div class="hamburger" onclick="toggleMenu()">☰</div>
-
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </div>
-</nav>
-
+<!-- HERO -->
 <section class="hero">
-    <div class="hero-content">
-        <h1>Where brand, distribution, and performance meet.</h1>
-        <p>
-            We help tech startups and modern brands turn positioning into predictable revenue through structured branding, strategic distribution, and performance marketing systems.
-        </p>
-        <a href="#contact" class="btn btn-primary">Book a Strategy Call</a>
-        <a href="#services" class="btn btn-outline">View Our Services</a>
-    </div>
-</section>
+    <div class="container">
+        <h1>We Engineer Growth Infrastructure for Web3.</h1>
+        <p>From brand architecture to distribution engines, Blockstein builds the systems that turn protocols into scalable ecosystems.</p>
+        <a href="#audit" class="btn">Request a Growth Audit</a>
 
-<section class="trust-strip">
-    <p>Performance-driven marketing for tech startups, Web3 projects and modern brands.</p>
-</section>
-
-<section id="about">
-    <h2 class="section-title">Integrated Growth Architecture</h2>
-    <p class="section-sub">
-        We don’t treat branding, distribution and performance as separate silos.
-        Blockstein builds unified marketing systems that turn positioning into measurable revenue.
-    </p>
-</section>
-
-<section id="services">
-    <h2 class="section-title">Our Services</h2>
-    <div class="services-grid">
-        <div class="service-card">
-            <h3>Brand Strategy & Identity</h3>
-            <p>Positioning, messaging architecture and visual systems for modern tech companies.</p>
-        </div>
-        <div class="service-card">
-            <h3>KOL & Influencer Distribution</h3>
-            <p>Strategic partnerships and ROI-focused influencer execution across Web3 ecosystems.</p>
-        </div>
-        <div class="service-card">
-            <h3>Digital Advertising</h3>
-            <p>Paid acquisition across Google, Meta and emerging platforms with disciplined performance tracking.</p>
-        </div>
-        <div class="service-card">
-            <h3>Analytics & Optimization</h3>
-            <p>Custom dashboards, reporting frameworks and continuous performance refinement.</p>
+        <div class="trust-bar">
+            <div>Layer-2 Protocols</div>
+            <div>DeFi Infrastructure</div>
+            <div>RWA Platforms</div>
+            <div>Liquidity Hubs</div>
         </div>
     </div>
 </section>
 
-<section id="contact">
-    <h2 class="section-title">Let’s Build Something That Scales</h2>
-    <p class="section-sub">
-        Serious inquiries only. We partner with companies ready to build structured, performance-driven growth.
-    </p>
-    <a href="mailto:hello@blocksteinsolutions.com" class="btn btn-primary">Email Us</a>
+<div class="section-divider"></div>
+
+<!-- CASE STUDIES -->
+<section class="container">
+    <h2>Proof of Work</h2>
+    <div class="grid grid-3">
+
+        <div class="card">
+            <h3>Layer-2 Infrastructure Protocol (Under NDA)</h3>
+            <p><strong>Challenge:</strong> High technical depth with low brand resonance.</p>
+            <p><strong>System:</strong> 90-day Developer-to-Founder content funnel + KOL distribution engine.</p>
+            <div class="metric">+240% Developer Onboarding</div>
+            <p>$12M TVL growth in Q1</p>
+        </div>
+
+        <div class="card">
+            <h3>Cross-Chain Liquidity Hub</h3>
+            <p><strong>Challenge:</strong> Fragmented multi-chain community.</p>
+            <p><strong>System:</strong> Unified brand architecture + performance community sprints.</p>
+            <div class="metric">45% CAC Reduction</div>
+            <p>Top 50 DeFi ranking achieved</p>
+        </div>
+
+        <div class="card">
+            <h3>Seed-Stage RWA Platform</h3>
+            <p><strong>Challenge:</strong> Needed institutional positioning.</p>
+            <p><strong>System:</strong> Brand pivot + LinkedIn-heavy executive distribution strategy.</p>
+            <div class="metric">$5M Series A Closed</div>
+            <p>Tier-1 custodian partnership secured</p>
+        </div>
+
+    </div>
 </section>
 
+<div class="section-divider"></div>
+
+<!-- METHODOLOGY -->
+<section class="container">
+    <h2>The Growth Stack</h2>
+    <div class="grid grid-3">
+        <div class="card">
+            <h3>1. Brand Architecture</h3>
+            <p>Refining the positioning so it scales across ecosystems and investor narratives.</p>
+        </div>
+        <div class="card">
+            <h3>2. Distribution Engine</h3>
+            <p>KOL networks, paid performance systems, and content frameworks working together.</p>
+        </div>
+        <div class="card">
+            <h3>3. Performance Optimization</h3>
+            <p>Data-led scaling, CAC reduction, and retention-focused TVL growth.</p>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- GROWTH AUDIT FORM -->
+<section id="audit" class="container">
+    <h2>Request a Growth Audit</h2>
+    <form action="#" method="POST">
+        <select required>
+            <option value="">Project Stage</option>
+            <option>Pre-Seed</option>
+            <option>Seed</option>
+            <option>Series A</option>
+            <option>Series B+</option>
+        </select>
+
+        <select required>
+            <option value="">Primary KPI</option>
+            <option>TVL Growth</option>
+            <option>Wallet Growth</option>
+            <option>Brand Positioning</option>
+        </select>
+
+        <input type="text" placeholder="Current Monthly Marketing Spend (USD)" required>
+        <input type="url" placeholder="Website URL" required>
+        <textarea placeholder="Briefly describe your biggest growth challenge"></textarea>
+
+        <button type="submit" class="btn">Submit & Book Call</button>
+    </form>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- FOOTER -->
 <footer>
+    <h3>The Systems-Driven Growth Report</h3>
+    <p>Insights on Web3 distribution, KOL frameworks, and performance scaling.</p>
 
-    <div class="social-links">
-        <a href="https://x.com/blockstein_?s=21" target="_blank">X</a>
-        <a href="https://www.facebook.com/share/1bJSGxtNUE/?mibextid=wwXIfr" target="_blank">Facebook</a>
-        <a href="https://www.tiktok.com/@blockstein_?_r=1&_t=ZS-93qfJ5ZSXuD" target="_blank">TikTok</a>
-        <a href="https://www.linkedin.com/company/blockstein-solutions/" target="_blank">LinkedIn</a>
-        <a href="#">Instagram</a>
+    <div class="newsletter">
+        <input type="email" placeholder="Enter your email">
+        <br><br>
+        <button class="btn">Subscribe</button>
     </div>
 
-    <div class="footer-bottom">
-        © 2026 Blockstein Solutions. All rights reserved.
-    </div>
-
+    <p>© 2026 Blockstein Solutions. All Rights Reserved.</p>
 </footer>
-
-<script>
-function toggleMenu() {
-    document.getElementById("navLinks").classList.toggle("active");
-}
-</script>
 
 </body>
 </html>
