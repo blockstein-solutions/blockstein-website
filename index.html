@@ -1,289 +1,725 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Blockstein Solutions | Systems-Driven Web3 Growth</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+import { useState, useEffect } from "react";
 
-<style>
-:root {
-    --bg: #080808;
-    --card: #111111;
-    --border: #1f1f1f;
-    --text: #ffffff;
-    --muted: #a7b1c2;
-    --accent: #21D0C3;
-}
+const LOGO_URL = "/blockstein-logo_2.png";
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
-}
+// ─── SVG Icon Components ───────────────────────────────────────────────────────
 
-body {
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-}
+const IconX = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.261 5.636L18.244 2.25Zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77Z"/>
+  </svg>
+);
+const IconLinkedIn = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+  </svg>
+);
+const IconFacebook = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+  </svg>
+);
+const IconTikTok = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/>
+  </svg>
+);
+const IconInstagram = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+  </svg>
+);
+const IconMail = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="2" y="4" width="20" height="16" rx="2"/>
+    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+  </svg>
+);
 
-.container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 80px 20px;
-}
+// Service icons — clean line SVG
+const SvcWeb3 = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+  </svg>
+);
+const SvcCommunity = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+  </svg>
+);
+const SvcContent = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+  </svg>
+);
+const SvcKOL = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+  </svg>
+);
+const SvcPaid = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/>
+    <path d="m9 9 2 2 4-4"/>
+  </svg>
+);
+const SvcFunnel = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/>
+  </svg>
+);
+const SvcSocial = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+  </svg>
+);
+const SvcLaunch = () => (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+    <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+    <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+  </svg>
+);
 
-h1, h2, h3 {
-    font-weight: 700;
-}
+// About point icons
+const IconBolt = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+  </svg>
+);
+const IconGlobe = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+  </svg>
+);
+const IconTarget = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>
+  </svg>
+);
+const IconRocket = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+    <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+  </svg>
+);
 
-h1 {
-    font-size: 48px;
-    line-height: 1.2;
-}
+// Why section icons
+const IconConversion = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+  </svg>
+);
+const IconChain = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+  </svg>
+);
+const IconGear = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+  </svg>
+);
 
-h2 {
-    font-size: 34px;
-    margin-bottom: 20px;
-}
+// Process icons
+const IconStrategy = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/><path d="M7 8h2m2 0h6M7 12h8"/>
+  </svg>
+);
+const IconPosition = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <polygon points="3 11 22 2 13 21 11 13 3 11"/>
+  </svg>
+);
+const IconDistribute = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+  </svg>
+);
+const IconScale = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+  </svg>
+);
 
-p {
-    color: var(--muted);
-    margin-bottom: 20px;
-}
+const IconCheck = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+    <polyline points="20 6 9 17 4 12"/>
+  </svg>
+);
 
-.btn {
-    display: inline-block;
-    padding: 14px 28px;
-    background: var(--accent);
-    color: #000;
-    text-decoration: none;
-    font-weight: 600;
-    border-radius: 6px;
-    transition: 0.3s ease;
-}
+// ─── Data ──────────────────────────────────────────────────────────────────────
 
-.btn:hover {
-    box-shadow: 0 0 15px var(--accent);
-    transform: translateY(-2px);
-}
+const SERVICES = [
+  { Icon: SvcWeb3,      title: "Web3 Marketing",                    desc: "Full-funnel marketing for crypto, DeFi, and blockchain projects — from awareness to conversion." },
+  { Icon: SvcCommunity, title: "Community Growth & Management",     desc: "Build, grow, and nurture active communities across Discord, Telegram, and X." },
+  { Icon: SvcContent,   title: "Content Strategy & Personal Branding", desc: "Position founders and brands as authorities with strategic content and storytelling." },
+  { Icon: SvcKOL,       title: "KOL & Influencer Marketing",        desc: "High-impact influencer campaigns with vetted KOLs across crypto, tech, and lifestyle verticals." },
+  { Icon: SvcPaid,      title: "Paid Advertising",                  desc: "Performance-driven ad campaigns on Meta, Google, and TikTok — optimized for ROAS." },
+  { Icon: SvcFunnel,    title: "Funnel & Conversion Optimization",  desc: "Systematic funnel audits and optimization to turn traffic into revenue." },
+  { Icon: SvcSocial,    title: "Social Media Growth Systems",       desc: "Sustainable, compounding growth systems for X, LinkedIn, Instagram, and TikTok." },
+  { Icon: SvcLaunch,    title: "Launch Strategy",                   desc: "Orchestrated launch campaigns for token launches, product releases, and brand reveals." },
+];
 
-.section-divider {
-    border-top: 1px solid var(--border);
-}
+const RESULTS = [
+  { metric: "50K+",  label: "In 90 days",           desc: "Grew a Web3 protocol's community from 0 to 50,000 engaged members across Discord and Telegram.",                 tag: "Community Growth" },
+  { metric: "1M+",   label: "In 30 days",           desc: "Drove over 1 million impressions for a DeFi token launch through coordinated KOL and content strategy.",          tag: "Web3 Launch" },
+  { metric: "3X",    label: "Conversion Rate",       desc: "Rebuilt a SaaS startup's landing funnel, tripling conversion rates within the first 60 days.",                   tag: "CRO & Funnels" },
+  { metric: "$2.4M", label: "Ad spend managed",      desc: "Managed and optimized multi-platform paid campaigns generating consistent 4–6X ROAS for e-com and tech clients.", tag: "Paid Media" },
+  { metric: "14",    label: "Successful launches",   desc: "Executed end-to-end token and product launches globally, from strategy to execution to post-launch retention.",    tag: "Launch Strategy" },
+  { metric: "92%",   label: "Client retention rate", desc: "We measure our success by the results we deliver — and our clients stay because results speak louder than decks.", tag: "Performance" },
+];
 
-/* HERO */
-.hero {
-    text-align: center;
-    padding: 140px 20px 100px;
-}
+const PROCESS = [
+  { num: "01", Icon: IconStrategy,   title: "Strategy",     desc: "We audit your market, competitors, and brand positioning to build a clear growth plan." },
+  { num: "02", Icon: IconPosition,   title: "Positioning",  desc: "We define your unique angle — your voice, value prop, and the story only your brand can tell." },
+  { num: "03", Icon: IconDistribute, title: "Distribution", desc: "We deploy across the right channels with the right message at the right time — at scale." },
+  { num: "04", Icon: IconScale,      title: "Scale",        desc: "We double down on what works, optimize relentlessly, and build systems that compound." },
+];
 
-.hero p {
-    font-size: 18px;
-    max-width: 700px;
-    margin: 20px auto;
-}
+const SOCIALS = [
+  { Icon: IconX,         label: "X",         href: "https://x.com/Blockstein_" },
+  { Icon: IconLinkedIn,  label: "LinkedIn",   href: "https://www.linkedin.com/company/blockstein-solutions/" },
+  { Icon: IconFacebook,  label: "Facebook",   href: "https://www.facebook.com/profile.php?id=61587994164138" },
+  { Icon: IconTikTok,    label: "TikTok",     href: "https://www.tiktok.com/@blockstein_?is_from_webapp=1&sender_device=pc" },
+  { Icon: IconInstagram, label: "Instagram",  href: "https://www.instagram.com/blockstein_/?__pwa=1" },
+];
 
-/* TRUST BAR */
-.trust-bar {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 40px;
-    margin-top: 40px;
-    color: var(--muted);
-    font-weight: 600;
-}
+// ─── Styles ────────────────────────────────────────────────────────────────────
 
-/* BENTO GRID */
-.grid {
-    display: grid;
-    gap: 24px;
-}
+const styles = `
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=DM+Sans:wght@300;400;500&display=swap');
 
-.grid-3 {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --teal: #21D0C3;
+    --teal-dim: rgba(33,208,195,0.12);
+    --teal-glow: rgba(33,208,195,0.35);
+    --navy: #060B18;
+    --navy2: #0A1020;
+    --navy3: #0D1528;
+    --purple: #6B4FE8;
+    --purple-dim: rgba(107,79,232,0.15);
+    --text: #E8EDF8;
+    --muted: #7B8BA8;
+    --glass: rgba(255,255,255,0.04);
+    --glass-border: rgba(255,255,255,0.08);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--navy); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+  h1,h2,h3,h4 { font-family: 'Montserrat', sans-serif; }
+  .section { padding: 100px 0; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
 
-.card {
-    background: var(--card);
-    padding: 30px;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    transition: 0.3s ease;
-}
+  /* NAV */
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 14px 0; transition: all 0.3s; }
+  .nav.scrolled { background: rgba(6,11,24,0.94); backdrop-filter: blur(24px); border-bottom: 1px solid var(--glass-border); }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+  .nav-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-brand-logo { height: 36px; width: 36px; object-fit: contain; filter: drop-shadow(0 0 8px rgba(33,208,195,0.3)); }
+  .nav-brand-text { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.15rem; color: var(--text); letter-spacing: -0.3px; line-height: 1; }
+  .nav-brand-text span { color: var(--teal); }
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta { background: var(--teal); color: #000 !important; padding: 9px 20px; border-radius: 6px; font-weight: 700; font-size: 0.84rem !important; font-family: 'Montserrat', sans-serif; transition: box-shadow 0.2s, transform 0.2s !important; }
+  .nav-cta:hover { box-shadow: 0 0 20px var(--teal-glow); transform: translateY(-1px); }
 
-.card:hover {
-    border-color: var(--accent);
-    box-shadow: 0 0 12px rgba(33, 208, 195, 0.3);
-}
+  /* HERO */
+  .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding-top: 80px; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(33,208,195,0.08) 0%, transparent 70%), radial-gradient(ellipse 60% 40% at 80% 80%, rgba(107,79,232,0.07) 0%, transparent 60%), linear-gradient(180deg, #060B18 0%, #08101E 100%); }
+  .hero-grid { position: absolute; inset: 0; opacity: 0.04; background-image: linear-gradient(var(--teal) 1px, transparent 1px), linear-gradient(90deg, var(--teal) 1px, transparent 1px); background-size: 60px 60px; }
+  .hero-orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+  .hero-orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(33,208,195,0.12), transparent 70%); top: -100px; left: -100px; animation: float1 8s ease-in-out infinite; }
+  .hero-orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(107,79,232,0.1), transparent 70%); bottom: -50px; right: -80px; animation: float2 10s ease-in-out infinite; }
+  @keyframes float1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(30px,20px)} }
+  @keyframes float2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-20px,-30px)} }
+  .hero-content { position: relative; text-align: center; max-width: 860px; margin: 0 auto; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--glass-border); background: var(--glass); backdrop-filter: blur(10px); border-radius: 50px; padding: 6px 16px; font-size: 0.78rem; font-weight: 600; color: var(--teal); margin-bottom: 28px; letter-spacing: 1px; text-transform: uppercase; }
+  .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 8px var(--teal); animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .hero h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); font-weight: 900; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 24px; background: linear-gradient(135deg, #fff 0%, #C8D8F0 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero h1 .accent { background: linear-gradient(135deg, var(--teal) 0%, #6B4FE8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-sub { font-size: 1.1rem; color: var(--muted); max-width: 540px; margin: 0 auto; font-weight: 400; line-height: 1.75; }
+  .hero-audience { margin: 28px auto 36px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .hero-audience-label { font-size: 0.72rem; letter-spacing: 2.5px; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .hero-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .hero-pill { display: inline-flex; align-items: center; gap: 8px; background: var(--glass); border: 1px solid var(--glass-border); backdrop-filter: blur(12px); border-radius: 50px; padding: 8px 18px; font-size: 0.83rem; font-weight: 500; color: var(--text); transition: border-color 0.25s, color 0.25s, box-shadow 0.25s, transform 0.25s; cursor: default; }
+  .hero-pill:hover { border-color: rgba(33,208,195,0.45); color: #fff; box-shadow: 0 0 16px rgba(33,208,195,0.12); transform: translateY(-2px); }
+  .pill-check { color: var(--teal); display: flex; align-items: center; }
+  .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary { background: var(--teal); color: #000; padding: 14px 30px; border-radius: 8px; font-weight: 700; font-size: 0.95rem; border: none; cursor: pointer; font-family: 'Montserrat', sans-serif; transition: box-shadow 0.2s, transform 0.2s; text-decoration: none; display: inline-block; }
+  .btn-primary:hover { box-shadow: 0 0 30px var(--teal-glow), 0 4px 20px rgba(0,0,0,0.3); transform: translateY(-2px); }
+  .btn-secondary { color: var(--text); padding: 14px 30px; border-radius: 8px; font-weight: 600; font-size: 0.95rem; border: 1px solid var(--glass-border); cursor: pointer; font-family: 'Montserrat', sans-serif; transition: border-color 0.2s, transform 0.2s, color 0.2s; text-decoration: none; display: inline-block; backdrop-filter: blur(10px); background: var(--glass); }
+  .btn-secondary:hover { border-color: var(--teal); color: var(--teal); transform: translateY(-2px); }
+  .hero-scroll { position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--muted); font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; }
+  .scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--teal), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+  @keyframes scrollPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
 
-.metric {
-    font-size: 32px;
-    color: var(--accent);
-    font-weight: 700;
-}
+  /* TRUST */
+  .trust { padding: 56px 0; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); background: var(--navy2); }
+  .trust-label { text-align: center; font-size: 0.75rem; color: var(--muted); letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 36px; font-weight: 600; }
+  .trust-logos { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+  .trust-logo { border: 1px solid var(--glass-border); background: var(--glass); backdrop-filter: blur(10px); border-radius: 8px; padding: 12px 24px; color: var(--muted); font-size: 0.83rem; font-weight: 600; font-family: 'Montserrat', sans-serif; letter-spacing: 0.5px; transition: border-color 0.2s, color 0.2s; }
+  .trust-logo:hover { border-color: var(--teal); color: var(--teal); }
 
-/* FORM */
-form {
-    display: grid;
-    gap: 20px;
-    max-width: 600px;
-}
+  /* SECTION LABELS */
+  .section-tag { display: inline-block; color: var(--teal); font-size: 0.75rem; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700; margin-bottom: 14px; }
+  .section-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -1px; margin-bottom: 16px; line-height: 1.15; }
+  .section-sub { color: var(--muted); font-size: 1rem; max-width: 520px; line-height: 1.75; }
 
-input, select, textarea {
-    padding: 12px;
-    background: #111;
-    border: 1px solid var(--border);
-    color: white;
-    border-radius: 6px;
-}
+  /* SERVICES */
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; margin-top: 56px; }
+  .service-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 14px; padding: 28px 26px; backdrop-filter: blur(10px); transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s; cursor: default; position: relative; overflow: hidden; }
+  .service-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, var(--teal-dim), var(--purple-dim)); opacity: 0; transition: opacity 0.3s; border-radius: 14px; }
+  .service-card:hover::before { opacity: 1; }
+  .service-card:hover { border-color: rgba(33,208,195,0.35); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(33,208,195,0.08), 0 4px 16px rgba(0,0,0,0.3); }
+  .service-icon { width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg, var(--teal-dim), var(--purple-dim)); border: 1px solid rgba(33,208,195,0.2); display: flex; align-items: center; justify-content: center; color: var(--teal); margin-bottom: 18px; position: relative; }
+  .service-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 10px; color: var(--text); position: relative; }
+  .service-card p { font-size: 0.85rem; color: var(--muted); line-height: 1.65; position: relative; }
 
-input:focus, select:focus, textarea:focus {
-    border-color: var(--accent);
-    outline: none;
-}
+  /* WHY BLOCKSTEIN */
+  .why-section { background: var(--navy3); }
+  .why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 56px; }
+  .why-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 16px; padding: 36px 30px; backdrop-filter: blur(10px); position: relative; overflow: hidden; transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; }
+  .why-card:hover { transform: translateY(-5px); border-color: rgba(33,208,195,0.3); box-shadow: 0 20px 50px rgba(0,0,0,0.3), 0 0 30px rgba(33,208,195,0.06); }
+  .why-card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
+  .why-num { font-family: 'Montserrat', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 2px; color: var(--teal); opacity: 0.5; }
+  .why-icon { width: 38px; height: 38px; border-radius: 9px; background: linear-gradient(135deg, var(--teal-dim), var(--purple-dim)); border: 1px solid rgba(33,208,195,0.15); display: flex; align-items: center; justify-content: center; color: var(--teal); }
+  .why-card h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 12px; line-height: 1.35; }
+  .why-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.7; }
+  .why-card-line { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--teal), transparent); opacity: 0; transition: opacity 0.3s; }
+  .why-card:hover .why-card-line { opacity: 1; }
 
-/* FOOTER */
-footer {
-    padding: 60px 20px;
-    text-align: center;
-    border-top: 1px solid var(--border);
-    color: var(--muted);
-}
+  /* PROCESS */
+  .process { background: var(--navy2); }
+  .process-steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; margin-top: 56px; background: var(--glass-border); border-radius: 16px; overflow: hidden; border: 1px solid var(--glass-border); }
+  .process-step { background: var(--navy2); padding: 40px 32px; position: relative; transition: background 0.3s; }
+  .process-step:hover { background: rgba(33,208,195,0.03); }
+  .process-step-icon { width: 44px; height: 44px; border-radius: 10px; background: var(--teal-dim); border: 1px solid rgba(33,208,195,0.2); display: flex; align-items: center; justify-content: center; color: var(--teal); margin-bottom: 18px; }
+  .process-num { font-family: 'Montserrat', sans-serif; font-size: 2.6rem; font-weight: 900; color: transparent; -webkit-text-stroke: 1px rgba(33,208,195,0.18); line-height: 1; margin-bottom: 14px; }
+  .process-step h3 { font-size: 1.05rem; font-weight: 700; color: var(--teal); margin-bottom: 10px; }
+  .process-step p { font-size: 0.875rem; color: var(--muted); line-height: 1.65; }
+  .process-divider { position: absolute; top: 48px; right: -1px; width: 1px; height: 40px; background: linear-gradient(to bottom, transparent, var(--teal), transparent); }
 
-.newsletter {
-    max-width: 400px;
-    margin: 20px auto;
-}
+  /* RESULTS */
+  .results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 56px; }
+  .result-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 14px; padding: 34px 30px; backdrop-filter: blur(10px); transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s; position: relative; overflow: hidden; }
+  .result-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--teal), transparent); opacity: 0; transition: opacity 0.3s; }
+  .result-card:hover::after { opacity: 1; }
+  .result-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.3); border-color: rgba(33,208,195,0.2); }
+  .result-metric { font-family: 'Montserrat', sans-serif; font-size: 2.5rem; font-weight: 900; background: linear-gradient(135deg, var(--teal), #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1; margin-bottom: 6px; }
+  .result-label { font-size: 0.8rem; color: var(--muted); margin-bottom: 14px; letter-spacing: 0.3px; }
+  .result-desc { font-size: 0.875rem; color: var(--text); line-height: 1.65; }
+  .result-tag { display: inline-block; margin-top: 16px; font-size: 0.72rem; font-weight: 700; color: var(--teal); background: var(--teal-dim); border: 1px solid rgba(33,208,195,0.2); border-radius: 50px; padding: 3px 12px; letter-spacing: 0.5px; text-transform: uppercase; }
 
-@media (max-width: 768px) {
-    h1 {
-        font-size: 34px;
-    }
-}
-</style>
-</head>
+  /* ABOUT */
+  .about { background: var(--navy3); }
+  .about-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .about-left p { color: var(--muted); line-height: 1.8; margin-bottom: 16px; font-size: 0.975rem; }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 36px; }
+  .about-stat { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 10px; padding: 18px; }
+  .about-stat-num { font-family: 'Montserrat', sans-serif; font-size: 1.8rem; font-weight: 800; color: var(--teal); line-height: 1; }
+  .about-stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 5px; }
+  .about-right { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 16px; padding: 36px; backdrop-filter: blur(10px); position: relative; overflow: hidden; }
+  .about-right::before { content: ''; position: absolute; top: -40px; right: -40px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(33,208,195,0.07), transparent 70%); }
+  .about-points { display: flex; flex-direction: column; gap: 20px; }
+  .about-point { display: flex; align-items: flex-start; gap: 14px; }
+  .about-point-icon { width: 34px; height: 34px; flex-shrink: 0; border-radius: 8px; background: var(--teal-dim); border: 1px solid rgba(33,208,195,0.2); display: flex; align-items: center; justify-content: center; color: var(--teal); }
+  .about-point h4 { font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+  .about-point p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+  .founder-card { display: flex; align-items: center; gap: 14px; margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--glass-border); position: relative; }
+  .founder-avatar { width: 46px; height: 46px; flex-shrink: 0; border-radius: 50%; background: linear-gradient(135deg, var(--teal), var(--purple)); display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 0.85rem; color: #000; box-shadow: 0 0 16px rgba(33,208,195,0.3); }
+  .founder-name { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 0.9rem; color: var(--text); margin-bottom: 3px; }
+  .founder-role { font-size: 0.76rem; color: var(--muted); line-height: 1.5; }
 
-<body>
+  /* NEWSLETTER */
+  .newsletter-section { background: var(--navy2); }
+  .newsletter-inner { text-align: center; max-width: 600px; margin: 0 auto; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 20px; padding: 60px 48px; backdrop-filter: blur(16px); position: relative; overflow: hidden; }
+  .newsletter-glow { position: absolute; top: -80px; left: 50%; transform: translateX(-50%); width: 300px; height: 200px; background: radial-gradient(ellipse, rgba(33,208,195,0.07), transparent 70%); pointer-events: none; }
+  .newsletter-inner .section-sub { margin: 16px auto 0; max-width: 440px; }
+  .newsletter-form { margin-top: 28px; }
+  .newsletter-input-wrap { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .newsletter-input { padding: 13px 18px; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.05); color: var(--text); font-size: 0.9rem; font-family: 'DM Sans', sans-serif; width: 260px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
+  .newsletter-input::placeholder { color: var(--muted); }
+  .newsletter-input:focus { border-color: rgba(33,208,195,0.5); box-shadow: 0 0 0 3px rgba(33,208,195,0.08); }
+  .newsletter-input.input-error { border-color: rgba(255,80,80,0.5); }
+  .newsletter-msg { margin-top: 12px; font-size: 0.85rem; font-weight: 500; }
+  .newsletter-msg.success { color: var(--teal); }
+  .newsletter-msg.error { color: #ff6b6b; }
+  .newsletter-hint { margin-top: 14px; font-size: 0.75rem; color: var(--muted); }
 
-<!-- HERO -->
-<section class="hero">
-    <div class="container">
-        <h1>We Engineer Growth Infrastructure for Web3.</h1>
-        <p>From brand architecture to distribution engines, Blockstein builds the systems that turn protocols into scalable ecosystems.</p>
-        <a href="#audit" class="btn">Request a Growth Audit</a>
+  /* CTA */
+  .cta-section { background: linear-gradient(135deg, rgba(33,208,195,0.07), rgba(107,79,232,0.07)); border-top: 1px solid rgba(33,208,195,0.12); border-bottom: 1px solid rgba(33,208,195,0.12); text-align: center; padding: 100px 0; position: relative; overflow: hidden; }
+  .cta-section::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 600px; height: 400px; background: radial-gradient(ellipse, rgba(33,208,195,0.05), transparent 70%); pointer-events: none; }
+  .cta-section h2 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; letter-spacing: -1px; margin-bottom: 16px; position: relative; }
+  .cta-section p { color: var(--muted); font-size: 1.05rem; margin-bottom: 36px; position: relative; }
+  .cta-section .btn-primary { font-size: 1rem; padding: 16px 38px; }
 
-        <div class="trust-bar">
-            <div>Layer-2 Protocols</div>
-            <div>DeFi Infrastructure</div>
-            <div>RWA Platforms</div>
-            <div>Liquidity Hubs</div>
-        </div>
+  /* FOOTER */
+  footer { background: #040810; padding: 60px 0 32px; border-top: 1px solid var(--glass-border); }
+  .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
+  .footer-logo-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  .footer-logo-img { height: 32px; width: 32px; object-fit: contain; filter: drop-shadow(0 0 6px rgba(33,208,195,0.25)); }
+  .footer-logo-text { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.05rem; color: var(--text); letter-spacing: -0.3px; }
+  .footer-logo-text span { color: var(--teal); }
+  .footer-brand-wrap > p { font-size: 0.84rem; color: var(--muted); line-height: 1.75; max-width: 260px; }
+  .footer-col h4 { font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text); margin-bottom: 18px; }
+  .footer-col a { display: flex; align-items: center; gap: 8px; color: var(--muted); text-decoration: none; font-size: 0.875rem; margin-bottom: 11px; transition: color 0.2s; }
+  .footer-col a:hover { color: var(--teal); }
+  .footer-col-icon { color: var(--muted); display: flex; flex-shrink: 0; transition: color 0.2s; }
+  .footer-col a:hover .footer-col-icon { color: var(--teal); }
+  .footer-bottom { border-top: 1px solid var(--glass-border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+  .footer-bottom p { font-size: 0.78rem; color: var(--muted); }
+  .social-links { display: flex; gap: 10px; }
+  .social-link { width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--glass-border); background: var(--glass); display: flex; align-items: center; justify-content: center; color: var(--muted); text-decoration: none; transition: border-color 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s; }
+  .social-link:hover { border-color: var(--teal); color: var(--teal); box-shadow: 0 0 14px var(--teal-dim); transform: translateY(-2px); }
+
+  /* FADE IN */
+  .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .about-inner { grid-template-columns: 1fr; gap: 40px; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .footer-brand-wrap { grid-column: 1/-1; }
+    .process-steps { grid-template-columns: 1fr; }
+    .process-divider { display: none; }
+    .why-grid { grid-template-columns: 1fr; }
+    .newsletter-inner { padding: 40px 24px; }
+    .newsletter-input { width: 100%; }
+    .newsletter-input-wrap { flex-direction: column; align-items: stretch; }
+  }
+`;
+
+// ─── NewsletterForm ────────────────────────────────────────────────────────────
+
+function NewsletterForm() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("idle");
+  const handleSubmit = () => {
+    if (!email || !email.includes("@")) { setStatus("error"); return; }
+    setStatus("success"); setEmail("");
+    setTimeout(() => setStatus("idle"), 4000);
+  };
+  return (
+    <div className="newsletter-form">
+      <div className="newsletter-input-wrap">
+        <input type="email" className={`newsletter-input${status === "error" ? " input-error" : ""}`} placeholder="Enter your email address" value={email} onChange={e => { setEmail(e.target.value); setStatus("idle"); }} onKeyDown={e => e.key === "Enter" && handleSubmit()} />
+        <button className="btn-primary" onClick={handleSubmit}>Join Newsletter</button>
+      </div>
+      {status === "success" && <div className="newsletter-msg success">You're in. Welcome to the inner circle.</div>}
+      {status === "error"   && <div className="newsletter-msg error">Please enter a valid email address.</div>}
+      <p className="newsletter-hint">Join 1,200+ founders and operators. Unsubscribe anytime.</p>
     </div>
-</section>
+  );
+}
 
-<div class="section-divider"></div>
+// ─── useFadeIn ────────────────────────────────────────────────────────────────
 
-<!-- CASE STUDIES -->
-<section class="container">
-    <h2>Proof of Work</h2>
-    <div class="grid grid-3">
+function useFadeIn() {
+  useEffect(() => {
+    const els = document.querySelectorAll(".fade-up");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const delay = parseInt(e.target.dataset.delay || "0", 10);
+          setTimeout(() => e.target.classList.add("visible"), delay);
+        }
+      });
+    }, { threshold: 0.1 });
+    els.forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+}
 
-        <div class="card">
-            <h3>Layer-2 Infrastructure Protocol (Under NDA)</h3>
-            <p><strong>Challenge:</strong> High technical depth with low brand resonance.</p>
-            <p><strong>System:</strong> 90-day Developer-to-Founder content funnel + KOL distribution engine.</p>
-            <div class="metric">+240% Developer Onboarding</div>
-            <p>$12M TVL growth in Q1</p>
+// ─── Main ─────────────────────────────────────────────────────────────────────
+
+export default function BlocksteinSolutions() {
+  const [scrolled, setScrolled] = useState(false);
+  useFadeIn();
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  return (
+    <>
+      <style>{styles}</style>
+
+      {/* NAV */}
+      <nav className={`nav${scrolled ? " scrolled" : ""}`}>
+        <div className="container nav-inner">
+          <a href="#hero" className="nav-brand">
+            <img src={LOGO_URL} alt="Blockstein Solutions logo" className="nav-brand-logo" />
+            <div className="nav-brand-text">Blockstein<span> Solutions</span></div>
+          </a>
+          <div className="nav-links">
+            <a href="#services">Services</a>
+            <a href="#results">Results</a>
+            <a href="#about">About</a>
+            <a href="mailto:hello@blocksteinsolutions.com" className="nav-cta">Work With Us</a>
+          </div>
         </div>
+      </nav>
 
-        <div class="card">
-            <h3>Cross-Chain Liquidity Hub</h3>
-            <p><strong>Challenge:</strong> Fragmented multi-chain community.</p>
-            <p><strong>System:</strong> Unified brand architecture + performance community sprints.</p>
-            <div class="metric">45% CAC Reduction</div>
-            <p>Top 50 DeFi ranking achieved</p>
+      {/* HERO */}
+      <section className="hero" id="hero">
+        <div className="hero-bg" /><div className="hero-grid" />
+        <div className="hero-orb hero-orb-1" /><div className="hero-orb hero-orb-2" />
+        <div className="container">
+          <div className="hero-content">
+            <div className="hero-badge"><div className="hero-badge-dot" />Global Digital Marketing Agency</div>
+            <h1>Where <span className="accent">Brand, Distribution,</span> and Performance Meet.</h1>
+            <p className="hero-sub">We help Web3 projects, startups, and modern brands turn attention into users, revenue, and market dominance — using strategy, content, and distribution that actually converts.</p>
+            <div className="hero-audience">
+              <div className="hero-audience-label">Built for</div>
+              <div className="hero-pills">
+                <div className="hero-pill"><span className="pill-check"><IconCheck /></span>Web3 founders scaling ecosystems</div>
+                <div className="hero-pill"><span className="pill-check"><IconCheck /></span>Startups looking for traction</div>
+                <div className="hero-pill"><span className="pill-check"><IconCheck /></span>Brands turning attention into revenue</div>
+              </div>
+            </div>
+            <div className="hero-btns">
+              <a href="mailto:hello@blocksteinsolutions.com" className="btn-primary">Let's Scale Your Brand →</a>
+              <a href="#services" className="btn-secondary">View Services</a>
+            </div>
+          </div>
         </div>
+        <div className="hero-scroll"><div className="scroll-line" /><span>Scroll</span></div>
+      </section>
 
-        <div class="card">
-            <h3>Seed-Stage RWA Platform</h3>
-            <p><strong>Challenge:</strong> Needed institutional positioning.</p>
-            <p><strong>System:</strong> Brand pivot + LinkedIn-heavy executive distribution strategy.</p>
-            <div class="metric">$5M Series A Closed</div>
-            <p>Tier-1 custodian partnership secured</p>
+      {/* TRUST */}
+      <section className="trust">
+        <div className="container">
+          <div className="trust-label">Trusted by modern brands &amp; Web3 projects globally</div>
+          <div className="trust-logos">
+            {["DefiAlpha","ChainVault","NovaMeta","Orbita Labs","StackLayer","PixelDAO","NexProtocol","SynthBase"].map(l => (
+              <div key={l} className="trust-logo">{l}</div>
+            ))}
+          </div>
         </div>
+      </section>
 
-    </div>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- METHODOLOGY -->
-<section class="container">
-    <h2>The Growth Stack</h2>
-    <div class="grid grid-3">
-        <div class="card">
-            <h3>1. Brand Architecture</h3>
-            <p>Refining the positioning so it scales across ecosystems and investor narratives.</p>
+      {/* SERVICES */}
+      <section className="section" id="services">
+        <div className="container">
+          <div className="fade-up">
+            <div className="section-tag">What We Do</div>
+            <h2 className="section-title">End-to-End Growth<br />for the Digital Era</h2>
+            <p className="section-sub">From Web3 launches to global brand campaigns — we deliver strategy and execution that moves the needle.</p>
+          </div>
+          <div className="services-grid">
+            {SERVICES.map(({ Icon, title, desc }, i) => (
+              <div key={title} className="service-card fade-up" data-delay={i * 60}>
+                <div className="service-icon"><Icon /></div>
+                <h3>{title}</h3>
+                <p>{desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
-        <div class="card">
-            <h3>2. Distribution Engine</h3>
-            <p>KOL networks, paid performance systems, and content frameworks working together.</p>
+      </section>
+
+      {/* WHY BLOCKSTEIN */}
+      <section className="section why-section">
+        <div className="container">
+          <div className="fade-up">
+            <div className="section-tag">Why Blockstein</div>
+            <h2 className="section-title">Not Another<br />Marketing Agency</h2>
+            <p className="section-sub">We don't chase impressions. We build systems that turn attention into measurable growth.</p>
+          </div>
+          <div className="why-grid">
+            {[
+              { num:"01", Icon: IconConversion, title:"We focus on conversion, not content",  desc:"Most agencies optimize for likes. We optimize for users, revenue, and retention — every campaign is tied to a real business outcome." },
+              { num:"02", Icon: IconChain,      title:"Deep Web3 understanding",              desc:"We understand token dynamics, community behavior, and ecosystem growth — not just marketing theory. We've lived it." },
+              { num:"03", Icon: IconGear,       title:"Execution over strategy decks",        desc:"We don't just advise. We build, launch, and scale alongside you — with a bias toward action and measurable outcomes." },
+            ].map(({ num, Icon, title, desc }, i) => (
+              <div key={num} className="why-card fade-up" data-delay={i * 80}>
+                <div className="why-card-top">
+                  <div className="why-num">{num}</div>
+                  <div className="why-icon"><Icon /></div>
+                </div>
+                <h3>{title}</h3><p>{desc}</p>
+                <div className="why-card-line" />
+              </div>
+            ))}
+          </div>
         </div>
-        <div class="card">
-            <h3>3. Performance Optimization</h3>
-            <p>Data-led scaling, CAC reduction, and retention-focused TVL growth.</p>
+      </section>
+
+      {/* PROCESS */}
+      <section className="section process" id="process">
+        <div className="container">
+          <div className="fade-up">
+            <div className="section-tag">How We Work</div>
+            <h2 className="section-title">A System Built<br />to Scale</h2>
+            <p className="section-sub">No guesswork. No bloated retainers. Just a clean four-step system that delivers outcomes.</p>
+          </div>
+          <div className="process-steps fade-up" data-delay={100}>
+            {PROCESS.map(({ num, Icon, title, desc }, i) => (
+              <div key={num} className="process-step">
+                <div className="process-step-icon"><Icon /></div>
+                <div className="process-num">{num}</div>
+                <h3>{title}</h3><p>{desc}</p>
+                {i < PROCESS.length - 1 && <div className="process-divider" />}
+              </div>
+            ))}
+          </div>
         </div>
-    </div>
-</section>
+      </section>
 
-<div class="section-divider"></div>
+      {/* RESULTS */}
+      <section className="section" id="results">
+        <div className="container">
+          <div className="fade-up">
+            <div className="section-tag">Results</div>
+            <h2 className="section-title">Numbers That<br />Tell the Story</h2>
+            <p className="section-sub">We are obsessed with outcomes. Here's what that looks like in practice.</p>
+          </div>
+          <div className="results-grid">
+            {RESULTS.map((r, i) => (
+              <div key={r.metric} className="result-card fade-up" data-delay={i * 70}>
+                <div className="result-metric">{r.metric}</div>
+                <div className="result-label">{r.label}</div>
+                <div className="result-desc">{r.desc}</div>
+                <div className="result-tag">{r.tag}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-<!-- GROWTH AUDIT FORM -->
-<section id="audit" class="container">
-    <h2>Request a Growth Audit</h2>
-    <form action="#" method="POST">
-        <select required>
-            <option value="">Project Stage</option>
-            <option>Pre-Seed</option>
-            <option>Seed</option>
-            <option>Series A</option>
-            <option>Series B+</option>
-        </select>
+      {/* ABOUT */}
+      <section className="section about" id="about">
+        <div className="container">
+          <div className="about-inner">
+            <div className="about-left fade-up">
+              <div className="section-tag">About Blockstein</div>
+              <h2 className="section-title">Built for the Way<br />Brands Grow Today</h2>
+              <p>Blockstein Solutions is a global, performance-driven marketing agency built for the digital era. We combine brand strategy, distribution systems, and execution to help Web3 projects, startups, and modern brands grow with clarity — not hype.</p>
+              <p>Led by <strong style={{color:"var(--text)"}}>Allan Mmbusia</strong> — a Web3 growth operator and General Manager of Meta Earth Kenya — Blockstein operates at the intersection of content, community, and conversion.</p>
+              <p>With deep experience in Web3 ecosystems, KOL marketing, and digital growth systems, we don't just create visibility — we build momentum that compounds.</p>
+              <div className="about-stats">
+                {[{num:"3+",label:"Years in Digital Marketing"},{num:"40+",label:"Clients Served Globally"},{num:"14",label:"Successful Launches"},{num:"$2.4M+",label:"Ad Spend Managed"}].map(s => (
+                  <div key={s.label} className="about-stat">
+                    <div className="about-stat-num">{s.num}</div>
+                    <div className="about-stat-label">{s.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="about-right fade-up" data-delay={150}>
+              <div className="about-points">
+                {[
+                  { Icon: IconBolt,   title:"Performance-Obsessed",  desc:"We track outcomes, not activity. Every move is tied to growth." },
+                  { Icon: IconGlobe,  title:"Global Web3 Network",    desc:"Strong connections across KOLs, communities, and ecosystems worldwide." },
+                  { Icon: IconTarget, title:"Clarity Over Hype",      desc:"We simplify complex systems into actionable growth strategies." },
+                  { Icon: IconRocket, title:"Operator Mindset",       desc:"We execute like insiders — not outsiders giving advice." },
+                ].map(({ Icon, title, desc }) => (
+                  <div key={title} className="about-point">
+                    <div className="about-point-icon"><Icon /></div>
+                    <div><h4>{title}</h4><p>{desc}</p></div>
+                  </div>
+                ))}
+              </div>
+              <div className="founder-card">
+                <div className="founder-avatar">AM</div>
+                <div>
+                  <div className="founder-name">Allan Mmbusia</div>
+                  <div className="founder-role">Founder · GM, Meta Earth Kenya · Web3 Growth Operator</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        <select required>
-            <option value="">Primary KPI</option>
-            <option>TVL Growth</option>
-            <option>Wallet Growth</option>
-            <option>Brand Positioning</option>
-        </select>
+      {/* NEWSLETTER */}
+      <section className="section newsletter-section">
+        <div className="container">
+          <div className="newsletter-inner fade-up">
+            <div className="newsletter-glow" />
+            <div className="section-tag">Stay Ahead</div>
+            <h2 className="section-title" style={{fontSize:"clamp(1.6rem,3.5vw,2.2rem)"}}>Not Ready Yet?</h2>
+            <p className="section-sub">Get insights on Web3 growth, marketing systems, and digital strategy — no fluff, no spam. Just what works.</p>
+            <NewsletterForm />
+          </div>
+        </div>
+      </section>
 
-        <input type="text" placeholder="Current Monthly Marketing Spend (USD)" required>
-        <input type="url" placeholder="Website URL" required>
-        <textarea placeholder="Briefly describe your biggest growth challenge"></textarea>
+      {/* CTA */}
+      <section className="cta-section" id="contact">
+        <div className="container">
+          <div className="fade-up">
+            <div className="section-tag">Get Started</div>
+            <h2>Let's Build Something<br />That Scales</h2>
+            <p>If you're serious about growth, we should talk.<br />Strategy, execution, and results — aligned.</p>
+            <a href="mailto:hello@blocksteinsolutions.com" className="btn-primary">Book a Growth Strategy Call →</a>
+          </div>
+        </div>
+      </section>
 
-        <button type="submit" class="btn">Submit & Book Call</button>
-    </form>
-</section>
-
-<div class="section-divider"></div>
-
-<!-- FOOTER -->
-<footer>
-    <h3>The Systems-Driven Growth Report</h3>
-    <p>Insights on Web3 distribution, KOL frameworks, and performance scaling.</p>
-
-    <div class="newsletter">
-        <input type="email" placeholder="Enter your email">
-        <br><br>
-        <button class="btn">Subscribe</button>
-    </div>
-
-    <p>© 2026 Blockstein Solutions. All Rights Reserved.</p>
-</footer>
-
-</body>
-</html>
+      {/* FOOTER */}
+      <footer>
+        <div className="container">
+          <div className="footer-inner">
+            <div className="footer-brand-wrap">
+              <div className="footer-logo-row">
+                <img src={LOGO_URL} alt="Blockstein Solutions" className="footer-logo-img" />
+                <div className="footer-logo-text">Blockstein<span> Solutions</span></div>
+              </div>
+              <p>Where brand, distribution, and performance meet. A global marketing agency built for the digital era.</p>
+            </div>
+            <div className="footer-col">
+              <h4>Services</h4>
+              <a href="#services">Web3 Marketing</a>
+              <a href="#services">Community Growth</a>
+              <a href="#services">Content Strategy</a>
+              <a href="#services">Paid Advertising</a>
+              <a href="#services">Launch Strategy</a>
+            </div>
+            <div className="footer-col">
+              <h4>Company</h4>
+              <a href="#about">About</a>
+              <a href="#results">Results</a>
+              <a href="#process">Process</a>
+              <a href="mailto:hello@blocksteinsolutions.com">Contact</a>
+            </div>
+            <div className="footer-col">
+              <h4>Connect</h4>
+              <a href="mailto:hello@blocksteinsolutions.com">
+                <span className="footer-col-icon"><IconMail /></span>hello@blocksteinsolutions.com
+              </a>
+              {SOCIALS.map(({ Icon, label, href }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer">
+                  <span className="footer-col-icon"><Icon /></span>{label}
+                </a>
+              ))}
+            </div>
+          </div>
+          <div className="footer-bottom">
+            <p>© {new Date().getFullYear()} Blockstein Solutions. All rights reserved.</p>
+            <div className="social-links">
+              {SOCIALS.map(({ Icon, label, href }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="social-link" aria-label={label}>
+                  <Icon />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </footer>
+    </>
+  );
+}
